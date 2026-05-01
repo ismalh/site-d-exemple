@@ -281,6 +281,39 @@
   });
 </script>
 
+ <!-- Hook Touléa -->
+<div id="toulea-hook" style="
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px 16px 4px 16px;
+  padding: 14px 18px;
+  max-width: 260px;
+  z-index: 9999;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+">
+  <p style="font-size:14px; font-weight:600; color:#111; margin:0 0 6px; line-height:1.4;">
+    Vous avez un bien à Toulouse ? Notre assistant IA planifie votre appel avec notre équipe — en 30 secondes, chrono.
+  </p>
+  <span onclick="document.getElementById('toulea-hook').style.display='none'"
+    style="font-size:11px; color:#999; cursor:pointer; text-decoration:underline;">
+    plus tard
+  </span>
+</div>
+
+<script type="module">
+  import Typebot from 'https://cdn.jsdelivr.net/npm/@typebot.io/js@0/dist/web.js'
+  Typebot.initBubble({
+    typebot: "my-typebot-fawhwry",
+    theme: {
+      button: { backgroundColor: "#0d9488" },
+      chatWindow: { backgroundColor: "#F8F8F8" },
+    },
+  });
+</script>
+
 
   /* ── FOOTER avec fond image ── */
   footer {
