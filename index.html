@@ -3,299 +3,342 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Démo Chatbot Conciergerie</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
-    --navy: #2C2F4A;
-    --gold: #B8963E;
-    --cream: #F5F2EC;
+    --navy: #1A1D2E;
+    --gold: #C9A96E;
+    --gold-light: #E8D5B0;
+    --cream: #F7F4EF;
     --white: #ffffff;
-    --muted: #6B6B7B;
-    --light-border: #e8e4dc;
+    --muted: #7A7A8A;
+    --border: #E5E0D8;
   }
-  body { font-family: Georgia, serif; color: var(--navy); background: var(--white); font-size: 16px; }
+  body { font-family: 'DM Sans', sans-serif; color: var(--navy); background: var(--white); }
 
   /* NAV */
-  nav { position: sticky; top: 0; z-index: 100; background: var(--white); border-bottom: 1px solid var(--light-border); display: flex; align-items: center; justify-content: space-between; padding: 1rem 2.5rem; }
-  .logo-kbi { font-size: 22px; font-weight: 700; letter-spacing: 4px; color: var(--navy); }
-  .logo-line { width: 36px; height: 1.5px; background: var(--gold); margin: 2px 0; }
-  .logo-sub { font-size: 9px; letter-spacing: 5px; color: var(--navy); font-family: Arial, sans-serif; }
-  .nav-links { display: flex; gap: 2rem; align-items: center; }
-  .nav-links a { text-decoration: none; font-family: Arial, sans-serif; font-size: 12px; letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase; }
-  .nav-links a:hover { color: var(--gold); }
-  .btn-nav { background: var(--navy); color: var(--navy) !important; padding: 10px 22px; font-size: 12px; letter-spacing: 1.5px; font-family: Arial, sans-serif; text-transform: uppercase; }
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 3rem;
+  }
+  .logo { display: flex; flex-direction: column; gap: 2px; }
+  .logo-name { font-family: 'Playfair Display', serif; font-size: 18px; letter-spacing: 2px; color: var(--navy); }
+  .logo-bar { width: 30px; height: 1.5px; background: var(--gold); }
+  .logo-sub { font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--muted); }
+  .nav-badge {
+    background: var(--navy); color: var(--white);
+    font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 8px 20px;
+  }
 
   /* HERO */
-  .hero { 
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/3/3a/Toulouse_-_Pont_neuf_et_Garonne.jpg") ;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  padding: 7rem 2rem 6rem;}
-
-  .hero-tag { font-family: Arial, sans-serif; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 12px; }
-  .hero-tag::before, .hero-tag::after { content: ''; display: block; width: 40px; height: 1px; background: var(--gold); }
-  .hero h1 { font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 400; color: var(--navy); line-height: 1.2; max-width: 700px; margin-bottom: 1.25rem; }
+  .hero {
+    min-height: 88vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+  }
+  .hero-left {
+    padding: 5rem 4rem 5rem 3rem;
+    position: relative;
+  }
+  .hero-left::after {
+    content: '';
+    position: absolute; right: 0; top: 10%; bottom: 10%;
+    width: 1px; background: var(--border);
+  }
+  .hero-tag {
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-tag::before { content: ''; width: 30px; height: 1px; background: var(--gold); display: block; }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-weight: 400; line-height: 1.25;
+    color: var(--navy); margin-bottom: 1.5rem;
+  }
   .hero h1 em { font-style: italic; color: var(--gold); }
-  .hero p { font-family: Arial, sans-serif; font-size: 15px; color: var(--muted); max-width: 500px; line-height: 1.8; margin-bottom: 2.5rem; }
-  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
-  .btn-primary { background: var(--navy); color: var(--white); padding: 14px 32px; font-size: 12px; letter-spacing: 2px; font-family: Arial, sans-serif; text-transform: uppercase; border: none; cursor: pointer; }
-  .btn-secondary { background: transparent; color: var(--navy); padding: 14px 32px; font-size: 12px; letter-spacing: 2px; font-family: Arial, sans-serif; text-transform: uppercase; border: 1px solid var(--navy); cursor: pointer; }
+  .hero-desc {
+    font-size: 15px; color: var(--muted); line-height: 1.8;
+    max-width: 420px; margin-bottom: 2.5rem; font-weight: 300;
+  }
+  .hero-cta {
+    display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--navy); color: var(--white);
+    padding: 13px 28px; font-size: 12px; letter-spacing: 1.5px;
+    text-transform: uppercase; border: none; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-ghost {
+    background: transparent; color: var(--navy);
+    padding: 13px 28px; font-size: 12px; letter-spacing: 1.5px;
+    text-transform: uppercase; border: 1px solid var(--navy); cursor: pointer;
+    font-family: 'DM Sans', sans-serif; transition: all 0.2s;
+  }
+  .btn-ghost:hover { background: var(--navy); color: var(--white); }
 
-  /* SECTIONS */
-  .section { padding: 5rem 2rem; }
-  .section-inner { max-width: 960px; margin: 0 auto; }
-  .gold-divider { width: 50px; height: 2px; background: var(--gold); margin: 0 auto 1.5rem; }
-  .gold-divider.left { margin: 0 0 1.5rem; }
-  .section-tag { font-family: Arial, sans-serif; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); text-align: center; margin-bottom: 0.75rem; }
-  .section-tag.left { text-align: left; }
-  .section-title { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 400; color: var(--navy); text-align: center; margin-bottom: 1rem; line-height: 1.3; }
-  .section-title.left { text-align: left; }
-  .section-body { font-family: Arial, sans-serif; font-size: 15px; color: var(--muted); text-align: center; max-width: 600px; margin: 0 auto; line-height: 1.8; }
+  .hero-right {
+    padding: 5rem 3rem 5rem 4rem;
+    background: var(--cream);
+    height: 100%;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .demo-label {
+    font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+  }
+  .demo-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 400;
+    color: var(--navy); margin-bottom: 0.75rem;
+  }
+  .demo-desc {
+    font-size: 13px; color: var(--muted); line-height: 1.7;
+    margin-bottom: 2rem; font-weight: 300;
+  }
 
-  /* QUI SOMMES-NOUS */
-  .about-bg { background: var(--white); }
-  .about-cols { display: flex; gap: 4rem; align-items: flex-start; flex-wrap: wrap; margin-top: 3rem; }
-  .about-col { flex: 1; min-width: 260px; }
-  .about-col h3 { font-size: 16px; color: var(--navy); font-weight: 400; letter-spacing: 1px; margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--light-border); }
-  .about-col p { font-family: Arial, sans-serif; font-size: 14px; color: var(--muted); line-height: 1.8; }
+  /* CHAT MOCKUP */
+  .chat-window {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+  }
+  .chat-header {
+    background: var(--navy);
+    padding: 14px 18px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .chat-avatar {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--gold); display: flex; align-items: center; justify-content: center;
+    font-size: 12px; color: var(--navy); font-weight: 500;
+  }
+  .chat-header-text { flex: 1; }
+  .chat-header-name { font-size: 13px; color: var(--white); font-weight: 500; }
+  .chat-header-status { font-size: 11px; color: rgba(255,255,255,0.5); }
+  .chat-dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; }
 
-  /* SERVICES */
-  .services-bg { background: var(--cream); }
-  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2px; margin-top: 3rem; }
-  .service-card { background: var(--white); padding: 2rem 1.75rem; border-top: 2px solid transparent; transition: border-color 0.3s; }
-  .service-card:hover { border-top-color: var(--gold); }
-  .service-icon svg { width: 26px; height: 26px; stroke: var(--gold); fill: none; stroke-width: 1.5; margin-bottom: 1rem; }
-  .service-card h3 { font-size: 16px; color: var(--navy); font-weight: 400; margin-bottom: 0.6rem; letter-spacing: 0.5px; }
-  .service-card p { font-family: Arial, sans-serif; font-size: 13px; color: var(--muted); line-height: 1.7; }
+  .chat-body { padding: 16px; display: flex; flex-direction: column; gap: 10px; min-height: 200px; }
 
-  /* TARIF */
-  .tarif-bg { background: var(--navy); }
-  .tarif-inner { max-width: 700px; margin: 0 auto; text-align: center; }
-  .tarif-inner .section-title { color: var(--white); }
-  .tarif-inner .section-body { color: rgba(255,255,255,0.55); max-width: none; }
-  .tarif-box { background: rgba(255,255,255,0.05); border: 1px solid rgba(184,150,62,0.4); padding: 3rem 2.5rem; margin-top: 2.5rem; }
-  .tarif-percent { font-size: 5rem; color: var(--gold); font-family: Georgia; line-height: 1; }
-  .tarif-label { font-family: Arial, sans-serif; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 0.5rem; margin-bottom: 2rem; }
-  .tarif-includes { list-style: none; text-align: left; display: inline-block; }
-  .tarif-includes li { font-family: Arial, sans-serif; font-size: 14px; color: rgba(255,255,255,0.65); padding: 6px 0; display: flex; align-items: center; gap: 10px; }
-  .tarif-includes li::before { content: ''; display: block; width: 6px; height: 6px; background: var(--gold); flex-shrink: 0; }
-  .tarif-note { font-family: Arial, sans-serif; font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 1.5rem; font-style: italic; }
+  .msg { display: flex; gap: 8px; align-items: flex-end; }
+  .msg-bot { justify-content: flex-start; }
+  .msg-user { justify-content: flex-end; }
+  .msg-avatar { width: 22px; height: 22px; border-radius: 50%; background: var(--gold-light); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--navy); }
+  .msg-bubble {
+    max-width: 80%; padding: 9px 13px; font-size: 13px; line-height: 1.5;
+  }
+  .msg-bot .msg-bubble { background: var(--cream); color: var(--navy); border-radius: 0 8px 8px 8px; }
+  .msg-user .msg-bubble { background: var(--navy); color: var(--white); border-radius: 8px 8px 0 8px; }
 
-  /* CONTACT */
-  .contact-bg { background: var(--white); }
-  .contact-cols { display: flex; gap: 4rem; flex-wrap: wrap; margin-top: 3rem; align-items: flex-start; }
-  .contact-info-col { flex: 0 0 260px; }
-  .contact-info-col h3 { font-size: 15px; color: var(--navy); font-weight: 400; letter-spacing: 1px; margin-bottom: 1.5rem; }
-  .contact-detail { display: flex; flex-direction: column; gap: 1.25rem; }
-  .contact-item { display: flex; gap: 12px; align-items: flex-start; }
-  .contact-item svg { width: 18px; height: 18px; stroke: var(--gold); fill: none; stroke-width: 1.5; flex-shrink: 0; margin-top: 2px; }
-  .contact-item-text { font-family: Arial, sans-serif; font-size: 13px; }
-  .contact-item-text span { display: block; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
-  .contact-item-text a { color: var(--navy); text-decoration: none; }
-  .contact-item-text a:hover { color: var(--gold); }
-  .contact-form-col { flex: 1; min-width: 260px; }
-  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .contact-form input, .contact-form textarea, .contact-form select { background: var(--cream); border: 1px solid var(--light-border); color: var(--navy); padding: 13px 15px; font-family: Arial, sans-serif; font-size: 14px; outline: none; transition: border-color 0.2s; width: 100%; }
-  .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus { border-color: var(--gold); }
-  .contact-form textarea { resize: vertical; min-height: 110px; }
-  .btn-submit { background: var(--navy); color: var(--white); padding: 14px 32px; font-family: Arial, sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; border: none; cursor: pointer; align-self: flex-start; }
+  .typing { display: flex; gap: 4px; align-items: center; padding: 9px 13px; background: var(--cream); border-radius: 0 8px 8px 8px; width: fit-content; }
+  .typing span { width: 5px; height: 5px; border-radius: 50%; background: var(--muted); animation: bounce 1.2s infinite; }
+  .typing span:nth-child(2) { animation-delay: 0.2s; }
+  .typing span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-5px); } }
+
+  /* STATS */
+  .stats { background: var(--navy); padding: 4rem 3rem; }
+  .stats-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .stat-item { padding: 2rem; border-right: 1px solid rgba(255,255,255,0.08); text-align: center; }
+  .stat-item:last-child { border-right: none; }
+  .stat-number { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--gold); display: block; margin-bottom: 0.5rem; }
+  .stat-label { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+
+  /* FEATURES */
+  .features { padding: 6rem 3rem; }
+  .features-inner { max-width: 960px; margin: 0 auto; }
+  .section-tag { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); text-align: center; margin-bottom: 0.75rem; }
+  .section-bar { width: 40px; height: 1.5px; background: var(--gold); margin: 0 auto 1.5rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 400; text-align: center; margin-bottom: 1rem; }
+  .section-sub { font-size: 15px; color: var(--muted); text-align: center; max-width: 540px; margin: 0 auto 3.5rem; line-height: 1.8; font-weight: 300; }
+
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px; background: var(--border); }
+  .feature-card { background: var(--white); padding: 2.5rem 2rem; position: relative; overflow: hidden; }
+  .feature-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--gold); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  .feature-card:hover::before { transform: scaleX(1); }
+  .feature-num { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: var(--gold-light); line-height: 1; margin-bottom: 1rem; font-weight: 400; }
+  .feature-card h3 { font-size: 15px; font-weight: 500; margin-bottom: 0.75rem; letter-spacing: 0.3px; }
+  .feature-card p { font-size: 13px; color: var(--muted); line-height: 1.7; font-weight: 300; }
+
+  /* CTA BAND */
+  .cta-band { background: var(--cream); padding: 5rem 3rem; text-align: center; }
+  .cta-band h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; margin-bottom: 1rem; }
+  .cta-band p { font-size: 15px; color: var(--muted); margin-bottom: 2rem; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.8; font-weight: 300; }
+  .cta-email { font-size: 13px; color: var(--muted); margin-top: 1.5rem; }
+  .cta-email a { color: var(--gold); text-decoration: none; }
 
   /* FOOTER */
-  footer { background: var(--navy); padding: 2rem 2.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-  footer p { font-family: Arial, sans-serif; font-size: 12px; color: rgba(255,255,255,0.3); letter-spacing: 1px; }
+  footer {
+    background: var(--navy); padding: 2rem 3rem;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 16px; letter-spacing: 2px; color: var(--white); }
+  footer p { font-size: 12px; color: rgba(255,255,255,0.3); letter-spacing: 0.5px; }
+
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-left::after { display: none; }
+    .hero-left { padding: 3rem 1.5rem; }
+    .hero-right { padding: 3rem 1.5rem; }
+    nav { padding: 1rem 1.5rem; }
+    .stats-inner { grid-template-columns: 1fr; }
+    .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <div>
-    <div class="logo-kbi">KBI</div>
-    <div class="logo-line"></div>
-    <div class="logo-sub">Conciergerie</div>
+  <div class="logo">
+    <div class="logo-name">Concièrge<em style="font-style:italic;color:var(--gold);">AI</em></div>
+    <div class="logo-bar"></div>
+    <div class="logo-sub">Assistant intelligent</div>
   </div>
-  <div class="nav-links">
-    <a href="#services">Services</a>
-    <a href="#tarif">Tarif</a>
-    <a href="#contact" >Nous contacter</a>
-  </div>
+  <div class="nav-badge">Voir la démo ↓</div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-tag">Conciergerie Airbnb — Toulouse & ses alentours</div>
-  <h1>Votre logement loué,<br><em>sans vous en occuper</em></h1>
-  <p>KBI Conciergerie gère votre location courte durée de A à Z — accueil des voyageurs, ménage, réservations. Vous touchez vos revenus, on s'occupe du reste.</p>
-  <div class="hero-cta">
-    <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Nous contacter</button>
-    <button class="btn-primary" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">Voir nos services</button>
-
-  </div>
-</section>
-
-<!-- QUI SOMMES-NOUS -->
-<section class="section about-bg">
-  <div class="section-inner">
-    <div class="section-tag">À propos</div>
-    <div class="gold-divider"></div>
-    <h2 class="section-title">Une conciergerie locale, pas une franchise</h2>
-    <p class="section-body">KBI Conciergerie est une conciergerie indépendante basée à Toulouse. On gère votre bien comme si c'était le nôtre — avec sérieux, réactivité et proximité.</p>
-    <div class="about-cols">
-      <div class="about-col">
-        <h3>Pourquoi nous faire confiance ?</h3>
-        <p>On est sur place, disponibles et joignables directement. Pas de plateforme intermédiaire, pas de call center. Vous avez un interlocuteur unique qui connaît votre bien.</p>
-      </div>
-      <div class="about-col">
-        <h3>Notre zone d'intervention</h3>
-        <p>Toulouse et ses alentours. On se déplace pour chaque check-in, chaque ménage, chaque état des lieux. La proximité, c'est notre avantage.</p>
-      </div>
-      <div class="about-col">
-        <h3>Notre engagement</h3>
-        <p>On ne prend commission que sur les revenus générés.</p>
-      </div>
+  <div class="hero-left">
+    <div class="hero-tag">Démonstration interactive</div>
+    <h1>Et si votre conciergerie répondait <em>24h/24</em> sans effort ?</h1>
+    <p class="hero-desc">Ce chatbot répond instantanément à vos voyageurs — disponibilités, check-in, tarifs, questions fréquentes. Testez-le maintenant sur la droite.</p>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="document.querySelector('#contact-section').scrollIntoView({behavior:'smooth'})">Je veux le même</button>
+      <button class="btn-ghost" onclick="document.querySelector('#features').scrollIntoView({behavior:'smooth'})">En savoir plus</button>
     </div>
   </div>
-</section>
 
-<!-- SERVICES -->
-<section id="services" class="section services-bg">
-  <div class="section-inner">
-    <div class="section-tag">Ce qu'on fait</div>
-    <div class="gold-divider"></div>
-    <h2 class="section-title">Tout ce dont votre location a besoin</h2>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg></div>
-        <h3>Check-in & Check-out</h3>
-        <p>On accueille vos voyageurs en personne, on remet les clés et on fait l'état des lieux à chaque rotation.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div>
-        <h3>Ménage & Linge</h3>
-        <p>Nettoyage complet entre chaque séjour, linge propre fourni. Le logement est impeccable à chaque arrivée.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-        <h3>Gestion des réservations</h3>
-        <p>On gère votre annonce Airbnb, les demandes, le calendrier et les messages voyageurs 7j/7.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
-        <h3>Relation voyageurs</h3>
-        <p>Réponses rapides, gestion des avis, guide d'accueil personnalisé. Vos voyageurs sont bien pris en charge.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TARIF -->
-<section id="tarif" class="section tarif-bg">
-  <div class="tarif-inner">
-    <div class="section-tag">Tarif</div>
-    <div class="gold-divider"></div>
-    <h2 class="section-title">Simple et transparent</h2>
-    <p class="section-body">Pas de forfait, pas de frais cachés. On prend une commission sur ce qu'on génère pour vous, c'est tout.</p>
-    <div class="tarif-box">
-      <div class="tarif-percent">20%</div>
-      <div class="tarif-label">des revenus locatifs générés</div>
-      <ul class="tarif-includes">
-        <li>Check-in & check-out inclus</li>
-        <li>Ménage & linge inclus</li>
-        <li>Gestion des réservations incluse</li>
-        <li>Communication voyageurs incluse</li>
-    
-      </ul>
-      <p class="tarif-note">Audit de votre bien gratuit et sans engagement — contactez-nous pour en savoir plus.</p>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" class="section contact-bg">
-  <div class="section-inner">
-    <div class="section-tag">Contact</div>
-    <div class="gold-divider"></div>
-    <h2 class="section-title">Parlons de votre bien</h2>
-    <p class="section-body" style="margin-bottom: 0;">On vous répond rapidement pour discuter de votre projet et estimer le potentiel de votre logement.</p>
-    <div class="contact-cols">
-      <div class="contact-info-col">
-        <h3>Nous joindre directement</h3>
-        <div class="contact-detail">
-          <div class="contact-item">
-            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 0117.93.4 2 2 0 0120 2.18v3a2 2 0 01-1.45 1.95 16 16 0 01-6.86.57l-1.05 1.83A16.44 16.44 0 0112 12a16.44 16.44 0 012.47 1.36l1.83-1.05a16 16 0 01.57 6.86A2 2 0 0122 16.92z"/></svg>
-            <div class="contact-item-text">
-              <span>Téléphone</span>
-              <a href="tel:0601741374">06 01 74 13 74</a>
-            </div>
-          </div>
-          <div class="contact-item">
-            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            <div class="contact-item-text">
-              <span>Email</span>
-              <a href="mailto:ismaelelamine06@gmail.com">ismaelelamine06@gmail.com</a>
-            </div>
-          </div>
-          <div class="contact-item">
-            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            <div class="contact-item-text">
-              <span>Zone</span>
-              <a>Toulouse & ses alentours</a>
-            </div>
-          </div>
+  <div class="hero-right">
+    <div class="demo-label">Démo live — testez maintenant</div>
+    <div class="demo-title">Votre assistant, disponible à toute heure</div>
+    <p class="demo-desc">Cliquez sur le bouton en bas à droite pour tester le chatbot. Posez-lui une vraie question de voyageur.</p>
+    <div class="chat-window">
+      <div class="chat-header">
+        <div class="chat-avatar">AI</div>
+        <div class="chat-header-text">
+          <div class="chat-header-name">Assistant Conciergerie</div>
+          <div class="chat-header-status">En ligne maintenant</div>
         </div>
+        <div class="chat-dot"></div>
       </div>
-      <div class="contact-form-col">
-        <div class="contact-form">
-          <div class="form-row">
-            <input type="text" placeholder="Prénom">
-            <input type="text" placeholder="Nom">
+      <div class="chat-body">
+        <div class="msg msg-bot">
+          <div class="msg-avatar">AI</div>
+          <div class="msg-bubble">Bonjour ! Je suis l'assistant de votre conciergerie. Comment puis-je vous aider ?</div>
+        </div>
+        <div class="msg msg-user">
+          <div class="msg-bubble">C'est quoi le code pour le digicode ?</div>
+        </div>
+        <div class="msg msg-bot">
+          <div class="msg-avatar">AI</div>
+          <div class="msg-bubble">Le code est <strong>4829#</strong>. Vous trouverez également un guide d'accueil complet dans votre chambre. Autre chose ?</div>
+        </div>
+        <div class="msg msg-user">
+          <div class="msg-bubble">Le wifi ça marche pas</div>
+        </div>
+        <div class="msg msg-bot">
+          <div class="msg-avatar">AI</div>
+          <div class="msg-bubble typing-anim">
+            <div class="typing"><span></span><span></span><span></span></div>
           </div>
-          <input type="email" placeholder="Email">
-          <input type="tel" placeholder="Téléphone">
-          <select>
-            <option value="" disabled selected>Type de bien</option>
-            <option>Studio</option>
-            <option>Appartement</option>
-            <option>Maison</option>
-            <option>Villa</option>
-          </select>
-          <textarea placeholder="Dites-nous en plus sur votre bien (localisation, nombre de pièces, situation actuelle...)"></textarea>
-          <button class="btn-submit">Envoyer</button>
         </div>
       </div>
     </div>
   </div>
 </section>
- <script type="module">
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <span class="stat-number">2s</span>
+      <span class="stat-label">Temps de réponse moyen</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">24/7</span>
+      <span class="stat-label">Disponibilité sans interruption</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">80%</span>
+      <span class="stat-label">Des questions résolues automatiquement</span>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section id="features" class="features">
+  <div class="features-inner">
+    <div class="section-tag">Fonctionnalités</div>
+    <div class="section-bar"></div>
+    <h2 class="section-title">Ce que fait le chatbot à votre place</h2>
+    <p class="section-sub">Pendant que vous gérez vos logements, votre assistant répond, guide et rassure vos voyageurs en temps réel.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-num">01</div>
+        <h3>Réponses instantanées</h3>
+        <p>Check-in, codes, wifi, règles de la maison — votre chatbot connaît toutes les réponses et les donne en 2 secondes.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">02</div>
+        <h3>Disponible 24h/24</h3>
+        <p>Même à 3h du matin, même en check-in, même en déplacement. Votre assistant ne dort jamais.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">03</div>
+        <h3>Personnalisé à votre bien</h3>
+        <p>Chaque chatbot est configuré avec vos propres informations — vos logements, vos règles, vos particularités.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">04</div>
+        <h3>Zéro appel répétitif</h3>
+        <p>Fini les 15 appels par semaine pour les mêmes questions. Votre téléphone sonne uniquement pour ce qui compte vraiment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact-section" class="cta-band">
+  <h2>Vous voulez ce chatbot sur votre site ?</h2>
+  <p>Je configure un assistant personnalisé avec vos logements, vos règles et votre style — en moins d'une semaine.</p>
+  <button class="btn-primary" style="font-size:13px;" onclick="window.location.href='mailto:ismaelelamine06@gmail.com?subject=Je veux un chatbot pour ma conciergerie'">Discutons-en 15 minutes</button>
+  <p class="cta-email">Ou directement : <a href="mailto:ismaelelamine06@gmail.com">ismaelelamine06@gmail.com</a></p>
+</section>
+
+<footer>
+  <div class="footer-logo">ConcièrgeAI</div>
+  <p>© 2026 — Démo réalisée sur mesure pour votre conciergerie</p>
+</footer>
+
+<script type="module">
   import Typebot from 'https://cdn.jsdelivr.net/npm/@typebot.io/js@0/dist/web.js'
-
   Typebot.initBubble({
     typebot: "my-typebot-fawhwry",
     theme: {
-      button: { backgroundColor: "#0d9488" },
-      chatWindow: { backgroundColor: "#F8F8F8" },
+      button: { backgroundColor: "#C9A96E" },
+      chatWindow: { backgroundColor: "#F7F4EF" },
     },
   });
 </script>
-
-
-<!-- FOOTER -->
-<footer>
-  <div>
-    <div class="logo-kbi" style="color:white;">KBI</div>
-    <div class="logo-line"></div>
-    <div class="logo-sub" style="color:rgba(255,255,255,0.4);">Conciergerie</div>
-  </div>
-  <p>© 2026 KBI Conciergerie — Toulouse, Occitanie</p>
-</footer>
 
 </body>
 </html>
