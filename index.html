@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -35,8 +34,9 @@ padding: 1.1rem 3rem;
 .nav-badge {
 background: var(--navy); color: var(--white);
 font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
-padding: 8px 20px;
+padding: 8px 20px; cursor: pointer; transition: opacity 0.2s;
 }
+.nav-badge:hover { opacity: 0.8; }
 
 /* HERO */
 .hero {
@@ -183,8 +183,22 @@ transition: transform 0.3s ease;
 .cta-band { background: var(--cream); padding: 5rem 3rem; text-align: center; }
 .cta-band h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; margin-bottom: 1rem; }
 .cta-band p { font-size: 15px; color: var(--muted); margin-bottom: 2rem; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.8; font-weight: 300; }
-.cta-email { font-size: 13px; color: var(--muted); margin-top: 1.5rem; }
-.cta-email a { color: var(--gold); text-decoration: none; }
+
+/* WHATSAPP BTN */
+.btn-whatsapp {
+display: inline-flex; align-items: center; gap: 10px;
+background: #25D366; color: #fff;
+padding: 14px 32px; font-size: 13px; letter-spacing: 1px;
+text-transform: uppercase; border: none; cursor: pointer;
+font-family: 'DM Sans', sans-serif; font-weight: 500;
+text-decoration: none; transition: opacity 0.2s;
+}
+.btn-whatsapp:hover { opacity: 0.88; }
+.btn-whatsapp svg { width: 18px; height: 18px; fill: #fff; flex-shrink: 0; }
+.cta-sub-note {
+font-size: 12px; color: var(--muted); margin-top: 1rem;
+letter-spacing: 0.3px;
+}
 
 /* FOOTER */
 footer {
@@ -204,146 +218,147 @@ nav { padding: 1rem 1.5rem; }
 .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
 }
 </style>
-
 </head>
 <body>
 
 <nav>
-<div class="logo">
-<div class="logo-name">Concièrge<em style="font-style:italic;color:var(--gold);">AI</em></div>
-<div class="logo-bar"></div>
-<div class="logo-sub">Assistant intelligent</div>
-</div>
-<div class="nav-badge" onclick="document.querySelector('typebot-bubble')?.shadowRoot?.querySelector('button')?.click()" style="cursor:pointer;">Voir la démo ↓</div>
+  <div class="logo">
+    <div class="logo-name">Hest<em style="font-style:italic;color:var(--gold);">ia</em></div>
+    <div class="logo-bar"></div>
+    <div class="logo-sub">Assistant intelligent</div>
+  </div>
+  <div class="nav-badge" onclick="document.querySelector('#contact-section').scrollIntoView({behavior:'smooth'})">Nous contacter ↓</div>
 </nav>
 
 <!-- HERO -->
-
 <section class="hero">
-<div class="hero-left">
-<div class="hero-tag">Démonstration interactive</div>
-<h1>Et si votre site captait des <em>propriétaires qualifiés</em> automatiquement ?</h1>
-<p class="hero-desc">Ce chatbot engage vos visiteurs 24h/24, répond à leurs questions et les convainc de prendre un RDV avec vous — sans que vous leviez le petit doigt. Testez-le maintenant.</p>
-<div class="hero-cta">
-<button class="btn-primary" onclick="document.querySelector('#contact-section').scrollIntoView({behavior:'smooth'})">Je veux le même</button>
-<button class="btn-ghost" onclick="document.querySelector('#features').scrollIntoView({behavior:'smooth'})">En savoir plus</button>
-</div>
-</div>
+  <div class="hero-left">
+    <div class="hero-tag">Démonstration interactive</div>
+    <h1>Et si votre site captait des <em>propriétaires qualifiés</em> automatiquement ?</h1>
+    <p class="hero-desc">Ce chatbot engage vos visiteurs 24h/24, répond à leurs questions et les convainc de vous contacter — sans que vous leviez le petit doigt. Testez-le maintenant.</p>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="document.querySelector('#contact-section').scrollIntoView({behavior:'smooth'})">Je veux le même</button>
+      <button class="btn-ghost" onclick="document.querySelector('#features').scrollIntoView({behavior:'smooth'})">En savoir plus</button>
+    </div>
+  </div>
 
-<div class="hero-right">
-<div class="demo-label">Démo live — testez maintenant</div>
-<div class="demo-title">Votre commercial IA, disponible à toute heure</div>
-<p class="demo-desc">Cliquez sur le bouton en bas à droite pour tester le chatbot. Imaginez-vous propriétaire d'un appartement cherchant une conciergerie.</p>
-<div class="chat-window">
-<div class="chat-header">
-<div class="chat-avatar">AI</div>
-<div class="chat-header-text">
-<div class="chat-header-name">Assistant Conciergerie</div>
-<div class="chat-header-status">En ligne maintenant</div>
-</div>
-<div class="chat-dot"></div>
-</div>
-<div class="chat-body">
-<div class="msg msg-bot">
-<div class="msg-avatar">AI</div>
-<div class="msg-bubble">Bonjour ! Vous avez un bien à louer sur Airbnb ? Je peux vous expliquer comment on s'en occupe pour vous. 😊</div>
-</div>
-<div class="msg msg-user">
-<div class="msg-bubble">Oui j'ai un appartement à Paris, comment ça marche ?</div>
-</div>
-<div class="msg msg-bot">
-<div class="msg-avatar">AI</div>
-<div class="msg-bubble">Parfait ! On gère tout à votre place : annonces, voyageurs, ménage, check-in. Vous touchez vos revenus sans vous occuper de rien. Vous voulez qu'on en parle en 15 min ?</div>
-</div>
-<div class="msg msg-user">
-<div class="msg-bubble">Oui pourquoi pas</div>
-</div>
-<div class="msg msg-bot">
-<div class="msg-avatar">AI</div>
-<div class="msg-bubble typing-anim">
-<div class="typing"><span></span><span></span><span></span></div>
-</div>
-</div>
-</div>
-</div>
-</div>
+  <div class="hero-right">
+    <div class="demo-label">Démo live — testez maintenant</div>
+    <div class="demo-title">Votre commercial IA, disponible à toute heure</div>
+    <p class="demo-desc">Cliquez sur le bouton en bas à droite pour tester le chatbot. Imaginez-vous propriétaire d'un appartement cherchant une conciergerie.</p>
+    <div class="chat-window">
+      <div class="chat-header">
+        <div class="chat-avatar">AI</div>
+        <div class="chat-header-text">
+          <div class="chat-header-name">Assistant Conciergerie</div>
+          <div class="chat-header-status">En ligne maintenant</div>
+        </div>
+        <div class="chat-dot"></div>
+      </div>
+      <div class="chat-body">
+        <div class="msg msg-bot">
+          <div class="msg-avatar">AI</div>
+          <div class="msg-bubble">Bonjour ! Vous avez un bien à louer sur Airbnb ? Je peux vous expliquer comment on s'en occupe pour vous. 😊</div>
+        </div>
+        <div class="msg msg-user">
+          <div class="msg-bubble">Oui j'ai un appartement à Paris, comment ça marche ?</div>
+        </div>
+        <div class="msg msg-bot">
+          <div class="msg-avatar">AI</div>
+          <div class="msg-bubble">Parfait ! On gère tout à votre place : annonces, voyageurs, ménage, check-in. Vous touchez vos revenus sans vous occuper de rien. Vous voulez qu'on en parle ?</div>
+        </div>
+        <div class="msg msg-user">
+          <div class="msg-bubble">Oui pourquoi pas</div>
+        </div>
+        <div class="msg msg-bot">
+          <div class="msg-avatar">AI</div>
+          <div class="msg-bubble">
+            <div class="typing"><span></span><span></span><span></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- STATS -->
-
 <div class="stats">
-<div class="stats-inner">
-<div class="stat-item">
-<span class="stat-number">2s</span>
-<span class="stat-label">Temps de réponse moyen</span>
-</div>
-<div class="stat-item">
-<span class="stat-number">24/7</span>
-<span class="stat-label">Prospection sans interruption</span>
-</div>
-<div class="stat-item">
-<span class="stat-number">3x</span>
-<span class="stat-label">Plus de RDV qualifiés</span>
-</div>
-</div>
+  <div class="stats-inner">
+    <div class="stat-item">
+      <span class="stat-number">2s</span>
+      <span class="stat-label">Temps de réponse moyen</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">24/7</span>
+      <span class="stat-label">Prospection sans interruption</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">3x</span>
+      <span class="stat-label">Plus de leads qualifiés</span>
+    </div>
+  </div>
 </div>
 
 <!-- FEATURES -->
-
 <section id="features" class="features">
-<div class="features-inner">
-<div class="section-tag">Fonctionnalités</div>
-<div class="section-bar"></div>
-<h2 class="section-title">Ce que fait le chatbot à votre place</h2>
-<p class="section-sub">Pendant que vous gérez vos logements, votre assistant engage les propriétaires qui visitent votre site et les convainc de vous faire confiance.</p>
-<div class="features-grid">
-<div class="feature-card">
-<div class="feature-num">01</div>
-<h3>Engage chaque visiteur</h3>
-<p>Aucun propriétaire ne repart sans être contacté. Le chatbot engage la conversation dès l'arrivée sur votre site, même à 3h du matin.</p>
-</div>
-<div class="feature-card">
-<div class="feature-num">02</div>
-<h3>Répond aux objections</h3>
-<p>Commission, gestion, confiance — votre assistant répond à toutes les questions des propriétaires hésitants et les rassure automatiquement.</p>
-</div>
-<div class="feature-card">
-<div class="feature-num">03</div>
-<h3>Prend les RDV à votre place</h3>
-<p>Le chatbot convainc le propriétaire de réserver un créneau dans votre agenda. Vous recevez des RDV qualifiés, prêts à signer.</p>
-</div>
-<div class="feature-card">
-<div class="feature-num">04</div>
-<h3>Personnalisé à votre offre</h3>
-<p>Chaque chatbot est configuré avec votre positionnement, vos tarifs et votre zone géographique pour un discours 100% adapté.</p>
-</div>
-</div>
-</div>
+  <div class="features-inner">
+    <div class="section-tag">Fonctionnalités</div>
+    <div class="section-bar"></div>
+    <h2 class="section-title">Ce que fait le chatbot à votre place</h2>
+    <p class="section-sub">Pendant que vous gérez vos logements, votre assistant engage les propriétaires qui visitent votre site et les convainc de vous faire confiance.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-num">01</div>
+        <h3>Engage chaque visiteur</h3>
+        <p>Aucun propriétaire ne repart sans être contacté. Le chatbot engage la conversation dès l'arrivée sur votre site, même à 3h du matin.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">02</div>
+        <h3>Répond aux objections</h3>
+        <p>Commission, gestion, confiance — votre assistant répond à toutes les questions des propriétaires hésitants et les rassure automatiquement.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">03</div>
+        <h3>Du visiteur au rendez-vous, sans vous</h3>
+        <p>Le chatbot guide chaque propriétaire intéressé jusqu'à la prise de rendez-vous — automatiquement. Vous recevez des créneaux confirmés dans votre agenda, sans avoir levé le petit doigt. Tout est inclus, rien à gérer de votre côté.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">04</div>
+        <h3>Personnalisé à votre offre</h3>
+        <p>Chaque chatbot est configuré avec votre positionnement, vos tarifs et votre zone géographique pour un discours 100% adapté.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- CTA -->
-
 <section id="contact-section" class="cta-band">
-<h2>Vous voulez ce chatbot sur votre site ?</h2>
-<p>Je configure un assistant personnalisé qui prospecte les propriétaires pour vous — en moins de 3 jours.</p>
-<button class="btn-primary" style="font-size:13px;" onclick="window.location.href='mailto:ismaelelamine06@gmail.com?subject=Je veux un chatbot pour ma conciergerie'">Discutons-en 15 minutes</button>
+  <h2 id="cta-title">Vous voulez ce chatbot sur votre site ?</h2>
+  <p>Je configure un assistant personnalisé qui prospecte les propriétaires pour vous — en moins de 3 jours. Écrivez-moi directement sur WhatsApp, on échange par message.</p>
+  <a id="whatsapp-btn" class="btn-whatsapp" href="https://wa.me/33601741374" target="_blank">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Échanger sur WhatsApp
+  </a>
+  <p class="cta-sub-note">La première étape, c'est juste un message 🤝</p>
 </section>
 
 <footer>
-<div class="footer-logo">ConcièrgeAI</div>
-<p>© 2026 — Démo réalisée sur mesure pour votre conciergerie</p>
+  <div class="footer-logo">Hestia</div>
+  <p id="footer-text">© 2026 — Démonstration personnalisée</p>
 </footer>
 
 <script type="module">
 import Typebot from 'https://cdn.jsdelivr.net/npm/@typebot.io/js@0/dist/web.js'
 Typebot.initBubble({
-typebot: "my-typebot-fawhwry",
-theme: {
-button: { backgroundColor: "#C9A96E" },
-chatWindow: { backgroundColor: "#F7F4EF" },
-},
+  typebot: "my-typebot-fawhwry",
+  theme: {
+    button: { backgroundColor: "#C9A96E" },
+    chatWindow: { backgroundColor: "#F7F4EF" },
+  },
 });
 </script>
+
+
 
 </body>
 </html>
